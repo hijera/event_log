@@ -1,0 +1,5 @@
+name = Event Log Taxonomy events
+description = "Logs taxonomy vocabulary and term CRUD events performed by the user."
+core = 7.x
+package = Statistics
+dependencies[] = event_log

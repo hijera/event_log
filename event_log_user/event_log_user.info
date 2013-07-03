@@ -1,0 +1,5 @@
+name = Event Log User events
+description = "Logs user CRUD events."
+core = 7.x
+package = Statistics
+dependencies[] = event_log

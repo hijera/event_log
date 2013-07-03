@@ -1,0 +1,5 @@
+name = Event Log User Authentication
+description = "Logs user authentication."
+core = 7.x
+package = Statistics
+dependencies[] = event_log
