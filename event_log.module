@@ -59,7 +59,7 @@ function event_log_permission() {
  *     Informative data, for example of the modified object. Optional.
  */
 function event_log_insert(&$log) {
-  if (empty($_SERVER['REMOTE_ADDR'])) {
+  if (php_sapi_name() == 'cli') {
     // Ignore CLI requests.
     return;
   }
