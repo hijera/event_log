@@ -76,7 +76,7 @@ function event_log_node_delete($node) {
 function event_log_node_init() {
   $item = menu_get_item();
   if (!empty($item['page_callback']) && $item['page_callback'] == 'node_page_view') {
-    $node = $item['page_arguments'][0];
+    $node = node_load(arg(1));
     if (!empty($node)) {
       $log = array(
         'type' => 'node',
