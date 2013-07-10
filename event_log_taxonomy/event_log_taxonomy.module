@@ -42,7 +42,7 @@ function event_log_taxonomy_taxonomy_vocabulary_insert($vocabulary) {
   $log = array(
     'type' => 'taxonomy',
     'operation' => 'vocabulary insert',
-    'description' => t('Insert vocabulary %title (%name)', array('%title' => $vocabulary->name, '%name' => $vocabulary->machine_name)),
+    'description' => t('%title (%name)', array('%title' => $vocabulary->name, '%name' => $vocabulary->machine_name)),
     'ref_char' => $vocabulary->machine_name,
   );
   event_log_insert($log);
@@ -55,7 +55,7 @@ function event_log_taxonomy_taxonomy_vocabulary_update($vocabulary) {
   $log = array(
     'type' => 'taxonomy',
     'operation' => 'vocabulary update',
-    'description' => t('Update vocabulary %title (%name)', array('%title' => $vocabulary->name, '%name' => $vocabulary->machine_name)),
+    'description' => t('%title (%name)', array('%title' => $vocabulary->name, '%name' => $vocabulary->machine_name)),
     'ref_char' => $vocabulary->machine_name,
     'info' => $vocabulary->original,
   );
@@ -69,7 +69,7 @@ function event_log_taxonomy_taxonomy_vocabulary_delete($vocabulary) {
   $log = array(
     'type' => 'taxonomy',
     'operation' => 'vocabulary delete',
-    'description' => t('Delete vocabulary %title (%name)', array('%title' => $vocabulary->name, '%name' => $vocabulary->machine_name)),
+    'description' => t('%title (%name)', array('%title' => $vocabulary->name, '%name' => $vocabulary->machine_name)),
     'ref_char' => $vocabulary->machine_name,
     'info' => $vocabulary,
   );
@@ -83,7 +83,7 @@ function event_log_taxonomy_taxonomy_term_insert($term) {
   $log = array(
     'type' => 'taxonomy',
     'operation' => 'term insert',
-    'description' => t('Insert term %name (%tid)', array('%name' => $term->name, '%tid' => $term->tid)),
+    'description' => t('%name (%tid)', array('%name' => $term->name, '%tid' => $term->tid)),
     'ref_numeric' => $term->tid,
   );
   event_log_insert($log);
@@ -96,7 +96,7 @@ function event_log_taxonomy_taxonomy_term_update($term) {
   $log = array(
     'type' => 'taxonomy',
     'operation' => 'term update',
-    'description' => t('Update term %name (%tid)', array('%name' => $term->name, '%tid' => $term->tid)),
+    'description' => t('%name (%tid)', array('%name' => $term->name, '%tid' => $term->tid)),
     'ref_numeric' => $term->tid,
     'info' => $term->original,
   );
@@ -110,7 +110,7 @@ function event_log_taxonomy_taxonomy_term_delete($term) {
   $log = array(
     'type' => 'taxonomy',
     'operation' => 'term delete',
-    'description' => t('Delete term %name (%tid)', array('%name' => $term->name, '%tid' => $term->tid)),
+    'description' => t('%name (%tid)', array('%name' => $term->name, '%tid' => $term->tid)),
     'ref_numeric' => $term->tid,
     'info' => $term,
   );

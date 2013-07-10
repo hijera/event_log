@@ -64,7 +64,7 @@ function event_log_menu_form_submit($form, $form_state, $form_id) {
       $info = array();
       $log = array(
         'operation' => 'overview',
-        'description' => t('Change links order and status for menu %title (%name)', array('%title' => $menu['title'], '%name' => $menu['menu_name'])),
+        'description' => t('%title (%name)', array('%title' => $menu['title'], '%name' => $menu['menu_name'])),
         'ref_char' => $menu['menu_name'],
         'info' => $form_state['original_tree'],
       );
@@ -77,14 +77,14 @@ function event_log_menu_form_submit($form, $form_state, $form_id) {
           $menu_link = menu_link_load($form_state['values']['mlid']);
           $log = array(
             'operation' => 'link insert',
-            'description' => t('Insert menu link %title, %path (%mlid)', array('%title' => $menu_link['link_title'], '%path' => $menu_link['link_path'], '%mlid' => $menu_link['mlid'])),
+            'description' => t('%title, %path (%mlid)', array('%title' => $menu_link['link_title'], '%path' => $menu_link['link_path'], '%mlid' => $menu_link['mlid'])),
             'ref_numeric' => $menu_link['mlid'],
           );
         } else {
           // Update
           $log = array(
             'operation' => 'link update',
-            'description' => t('Update menu link %title, %path (%mlid)', array('%title' => $menu_link['link_title'], '%path' => $menu_link['link_path'], '%mlid' => $menu_link['mlid'])),
+            'description' => t('%title, %path (%mlid)', array('%title' => $menu_link['link_title'], '%path' => $menu_link['link_path'], '%mlid' => $menu_link['mlid'])),
             'ref_numeric' => $menu_link['mlid'],
             'info' => $menu_link,
           );
@@ -96,7 +96,7 @@ function event_log_menu_form_submit($form, $form_state, $form_id) {
       $menu_link = $form_state['build_info']['args'][0];
       $log = array(
         'operation' => 'link delete',
-        'description' => t('Delete menu link %title, %path (%mlid)', array('%title' => $menu_link['link_title'], '%path' => $menu_link['link_path'], '%mlid' => $menu_link['mlid'])),
+        'description' => t('%title, %path (%mlid)', array('%title' => $menu_link['link_title'], '%path' => $menu_link['link_path'], '%mlid' => $menu_link['mlid'])),
         'ref_numeric' => $menu_link['mlid'],
         'info' => $menu_link,
       );
@@ -112,7 +112,7 @@ function event_log_menu_menu_insert($menu) {
   $log = array(
     'type' => 'menu',
     'operation' => 'insert',
-    'description' => t('Insert custom menu %title (%name)', array('%title' => $menu['title'], '%name' => $menu['menu_name'])),
+    'description' => t('%title (%name)', array('%title' => $menu['title'], '%name' => $menu['menu_name'])),
     'ref_char' => $menu['menu_name'],
   );
   event_log_insert($log);
@@ -125,7 +125,7 @@ function event_log_menu_menu_update($menu) {
   $log = array(
     'type' => 'menu',
     'operation' => 'insert',
-    'description' => t('Update custom menu %title (%name)', array('%title' => $menu['title'], '%name' => $menu['menu_name'])),
+    'description' => t('%title (%name)', array('%title' => $menu['title'], '%name' => $menu['menu_name'])),
     'ref_char' => $menu['menu_name'],
   );
   event_log_insert($log);
@@ -138,50 +138,9 @@ function event_log_menu_menu_delete($menu) {
   $log = array(
     'type' => 'menu',
     'operation' => 'insert',
-    'description' => t('Delete custom menu %title (%name)', array('%title' => $menu['title'], '%name' => $menu['menu_name'])),
+    'description' => t('%title (%name)', array('%title' => $menu['title'], '%name' => $menu['menu_name'])),
     'ref_char' => $menu['menu_name'],
     'info' => $menu,
-  );
-  event_log_insert($log);
-}
-
-/**
- * Implements hook_menu_link_insert().
- */
-function _event_log_menu_menu_link_insert($menu_link) {
-  $log = array(
-    'type' => 'menu',
-    'operation' => 'link insert',
-    'description' => t('Insert menu link %title, %path (%mlid)', array('%title' => $menu_link['link_title'], '%path' => $menu_link['link_path'], '%mlid' => $menu_link['mlid'])),
-    'ref_numeric' => $menu_link['mlid'],
-  );
-  event_log_insert($log);
-}
-
-/**
- * Implements hook_menu_link_update().
- */
-function _event_log_menu_menu_link_update($menu_link) {
-  $log = array(
-    'type' => 'menu',
-    'operation' => 'link update',
-    'description' => t('Update menu link %title, %path (%mlid)', array('%title' => $menu_link['link_title'], '%path' => $menu_link['link_path'], '%mlid' => $menu_link['mlid'])),
-    'ref_numeric' => $menu_link['mlid'],
-    'info' => (!empty($menu_link['original_item']) ? $menu_link['original_item'] : NULL),
-  );
-  event_log_insert($log);
-}
-
-/**
- * Implements hook_menu_link_delete().
- */
-function _event_log_menu_menu_link_delete($menu_link) {
-  $log = array(
-    'type' => 'menu',
-    'operation' => 'link delete',
-    'description' => t('Delete menu link %title, %path (%mlid)', array('%title' => $menu_link['link_title'], '%path' => $menu_link['link_path'], '%mlid' => $menu_link['mlid'])),
-    'ref_numeric' => $menu_link['mlid'],
-    'info' => $menu_link,
   );
   event_log_insert($log);
 }

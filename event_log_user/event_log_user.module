@@ -37,7 +37,7 @@ function event_log_user_insert($account) {
   $log = array(
     'type' => 'user',
     'operation' => 'insert',
-    'description' => t('Insert user %name (uid %uid)', array('%name' => $account_array['name'], '%uid' => $account_array['uid'])),
+    'description' => t('%name (uid %uid)', array('%name' => $account_array['name'], '%uid' => $account_array['uid'])),
     'ref_numeric' => $account_array['uid'],
   );
   event_log_insert($log);
@@ -51,7 +51,7 @@ function event_log_user_update($account) {
   $log = array(
     'type' => 'user',
     'operation' => 'update',
-    'description' => t('Update user %name (uid %uid)', array('%name' => $account_array['original']->name, '%uid' => $account_array['original']->uid)),
+    'description' => t('%name (uid %uid)', array('%name' => $account_array['original']->name, '%uid' => $account_array['original']->uid)),
     'ref_numeric' => $account_array['original']->uid,
     'info' => $account_array['original'],
   );
@@ -66,7 +66,7 @@ function event_log_user_delete($account) {
   $log = array(
     'type' => 'user',
     'operation' => 'delete',
-    'description' => t('Delete user %name (uid %uid)', array('%name' => $account_array['name'], '%uid' => $account_array['uid'])),
+    'description' => t('%name (uid %uid)', array('%name' => $account_array['name'], '%uid' => $account_array['uid'])),
     'ref_numeric' => $account_array['uid'],
     'info' => $account_array,
   );
@@ -84,7 +84,7 @@ function event_log_user_init() {
       $log = array(
         'type' => 'user',
         'operation' => 'view',
-        'description' => t('View user %name', array('%name' => $account->name)),
+        'description' => t('%name', array('%name' => $account->name)),
         'ref_numeric' => $account->uid,
       );
       event_log_insert($log);
