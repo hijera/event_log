@@ -82,6 +82,11 @@ function event_log_insert(&$log) {
     $log['info'] = var_export($log['info'], TRUE);
   }
 
+  if (!empty($log['info']) && (strlen($log['info']) > 20000)) {
+    // Limit the amount of data to prevent the database from filling up too quickly.
+    $log['info'] = substr($log['info'], 0, 20000);
+  }
+
   if (empty($log['path'])) {
     // If the menu is currently being rebuilt, menu_get_item will cause an
     // infinite loop. That's why we will check the cache directly.
@@ -94,6 +99,7 @@ function event_log_insert(&$log) {
       $log['path'] = $item['path'];
     }
   }
+
 
   drupal_write_record('event_log', $log);
 }

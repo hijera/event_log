@@ -42,7 +42,9 @@ function event_log_menu_event_log_handlers() {
  */
 function event_log_form_menu_overview_form_alter(&$form, &$form_state) {
   // Save original tree structure.
-  $form_state['original_tree'] = menu_build_tree($form_state['build_info']['args'][0]['menu_name']);
+  $menu_name = $form_state['build_info']['args'][0]['menu_name'];
+  $data = menu_tree_all_data($menu_name);
+  $form_state['original_tree'] = $data;
 }
 
 /**
@@ -58,6 +60,8 @@ function event_log_menu_form_submit($form, $form_state, $form_id) {
   switch ($form_id) {
     case 'menu_overview_form':
       $menu = $form_state['build_info']['args'][0];
+
+      $info = array();
       $log = array(
         'operation' => 'overview',
         'description' => t('Change links order and status for menu %title (%name)', array('%title' => $menu['title'], '%name' => $menu['menu_name'])),
