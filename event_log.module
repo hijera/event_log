@@ -174,7 +174,9 @@ function event_log_add_submit_handler(&$element, $callback) {
   }
   $keys = element_children($element);
   foreach ($keys as $key) {
-    event_log_add_submit_handler($element[$key], $callback);
+    if (is_array($element[$key])) {
+      event_log_add_submit_handler($element[$key], $callback);
+    }
   }
 }
 
