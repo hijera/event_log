@@ -19,26 +19,26 @@ function event_log_schema() {
       ),
       'type' => array(
         'description' => 'Event handler type.',
-        'type' => 'char',
+        'type' => 'varchar',
         'length' => '50',
         'not null' => TRUE,
       ),
       'operation' => array(
         'description' => 'The operation performed.',
-        'type' => 'char',
+        'type' => 'varchar',
         'length' => '50',
         'not null' => TRUE,
       ),
       'path' => array(
         'type' => 'varchar',
-        'length' => 255,
+        'length' => '255',
         'not null' => TRUE,
         'default' => '',
         'description' => 'Current path.',
       ),
       'form_id' => array(
         'description' => 'The form id of the submitted form.',
-        'type' => 'char',
+        'type' => 'varchar',
         'length' => '50',
         'not null' => FALSE,
       ),
@@ -49,7 +49,7 @@ function event_log_schema() {
       ),
       'ref_char' => array(
         'description' => 'A character value that can be used to reference an object.',
-        'type' => 'char',
+        'type' => 'varchar',
         'length' => '50',
         'not null' => FALSE,
       ),
@@ -72,7 +72,7 @@ function event_log_schema() {
       ),
       'ip' => array(
         'description' => 'IP address of the visitor that triggered this event.',
-        'type' => 'char',
+        'type' => 'varchar',
         'length' => '20',
         'not null' => FALSE,
       ),
@@ -92,4 +92,30 @@ function event_log_schema() {
   );
 
   return $schema;
+}
+
+/**
+ * Change column types to 'varchar' to decrease storage requirements.
+ */
+function event_log_update_7300() {
+  $spec = array('type' => 'varchar');
+  _event_log_update_schema_field('type', $spec);
+  _event_log_update_schema_field('operation', $spec);
+  _event_log_update_schema_field('form_id', $spec);
+  _event_log_update_schema_field('ref_char', $spec);
+  _event_log_update_schema_field('ip', $spec);
+}
+
+/**
+ * Updates only the specified spec fields.
+ * @param string $name
+ * @param array $new_spec
+ */
+function _event_log_update_schema_field($name, $new_spec) {
+  $schema = drupal_get_schema('event_log');
+  $spec = $schema['fields'][$name];
+  foreach ($new_spec as $key => $value) {
+    $spec[$key] = $value;
+  }
+  db_change_field('event_log', $name, $name, $spec);
 }

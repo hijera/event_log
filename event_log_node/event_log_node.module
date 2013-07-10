@@ -81,7 +81,7 @@ function event_log_node_init() {
       $log = array(
         'type' => 'node',
         'operation' => 'view',
-        'description' => t('View node %title', array('%title' => $node->title)),
+        'description' => '', // Do not show description because of storage.
         'ref_numeric' => $node->nid,
       );
       event_log_insert($log);

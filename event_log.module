@@ -83,7 +83,13 @@ function event_log_insert(&$log) {
   }
 
   if (empty($log['path'])) {
-    $item = menu_get_item();
+    // If the menu is currently being rebuilt, menu_get_item will cause an
+    // infinite loop. That's why we will check the cache directly.
+    $router_items = &drupal_static('menu_get_item');
+    if (!empty($router_items[$_GET['q']])) {
+      $item = $router_items[$_GET['q']];
+    }
+
     if (!empty($item)) {
       $log['path'] = $item['path'];
     }
