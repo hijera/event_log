@@ -81,7 +81,7 @@ function event_log_node_init() {
       $log = array(
         'type' => 'node',
         'operation' => 'view',
-        'description' => '', // Do not show description because of storage.
+        'description' => (strlen($node->title) > 20 ? substr($node->title, 0, 20) . '...' : $node->title),
         'ref_numeric' => $node->nid,
       );
       event_log_insert($log);
