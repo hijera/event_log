@@ -72,3 +72,33 @@ function event_log_auth_user_logout($account) {
   );
   event_log_insert($log);
 }
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function event_log_auth_form_user_login_alter(&$form, &$form_state) {
+  $form['#validate'][] = 'event_log_auth_user_login_validate';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function event_log_auth_form_user_login_block_alter(&$form, &$form_state) {
+  $form['#validate'][] = 'event_log_auth_user_login_validate';
+}
+
+function event_log_auth_user_login_validate($form, &$form_state) {
+  // Check for erros and log them.
+  $errors = form_get_errors();
+  if (!empty($errors)) {
+    $log = array(
+      'type' => 'authentication',
+      'operation' => 'fail',
+      'description' => t("Validation errors: @errors", array('@errors' => implode(", ", $errors))),
+    );
+    if (!empty($form_state['values']['name'])) {
+      $log['ref_char'] = $form_state['values']['name'];
+    }
+    event_log_insert($log);
+  }
+}
