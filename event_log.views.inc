@@ -143,6 +143,26 @@ function event_log_views_data() {
     ),
   );
 
+  // description
+  $data['event_log']['description'] = array(
+    'title' => t('Description'),
+    'help' => t('Description of the event.'),
+    'field' => array(
+      'group' => t('Event log'),
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+
   // created field
   $data['event_log']['created'] = array(
     'title' => t('Event timestamp'),
