@@ -163,6 +163,46 @@ function event_log_views_data() {
     ),
   );
 
+  // info
+  $data['event_log']['info'] = array(
+    'title' => t('Info'),
+    'help' => t('Meta information about the event, such as a serialized object.'),
+    'field' => array(
+      'group' => t('Event log'),
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+
+  // path
+  $data['event_log']['path'] = array(
+    'title' => t('Path'),
+    'help' => t('The active menu link path while the event occurred.'),
+    'field' => array(
+      'group' => t('Event log'),
+      'handler' => 'views_handler_field',
+      'click sortable' => TRUE,
+    ),
+    'sort' => array(
+      'handler' => 'views_handler_sort',
+    ),
+    'filter' => array(
+      'handler' => 'views_handler_filter_string',
+    ),
+    'argument' => array(
+      'handler' => 'views_handler_argument_string',
+    ),
+  );
+
   // created field
   $data['event_log']['created'] = array(
     'title' => t('Event timestamp'),
