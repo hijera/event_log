@@ -40,6 +40,7 @@ function event_log_permission() {
 
 /**
  * Inserts the log record in the event log. Sets the lid.
+ *
  * @param array $log
  *   The log record to be saved. This record contains the following fields:
  *   - {string} type
@@ -73,9 +74,10 @@ function event_log_insert(&$log) {
     $log['uid'] = $user->uid;
   }
 
-  if (empty($log['ip']) && !empty($_SERVER['REMOTE_ADDR'])) {
+  $ip = ip_address();
+  if (empty($log['ip']) && !empty($ip)) {
     global $user;
-    $log['ip'] = $_SERVER['REMOTE_ADDR'];
+    $log['ip'] = $ip;
   }
 
   if (!empty($log['info']) && !is_string($log['info'])) {
@@ -83,7 +85,8 @@ function event_log_insert(&$log) {
   }
 
   if (!empty($log['info']) && (strlen($log['info']) > 20000)) {
-    // Limit the amount of data to prevent the database from filling up too quickly.
+    // Limit the amount of data to prevent the database from filling up too
+    // quickly.
     $log['info'] = substr($log['info'], 0, 20000);
   }
 
