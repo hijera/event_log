@@ -7,8 +7,9 @@
           $('pre', element).hide();
           var span = $('<button></button>').text(Drupal.t("show"));
           $(element).prepend(span);
-          span.click(function() {
+          span.click(function(e) {
             $('pre', element).toggle();
+            e.preventDefault();
           });
         });
       }
