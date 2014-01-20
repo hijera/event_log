@@ -90,7 +90,7 @@ function event_log_insert(&$log) {
   }
 
   if (!empty($log['info']) && !is_string($log['info'])) {
-    $log['info'] = var_export($log['info'], TRUE);
+    $log['info'] = drupal_json_encode($log['info']);
   }
 
   if (!empty($log['info']) && (strlen($log['info']) > 20000)) {
