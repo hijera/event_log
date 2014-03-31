@@ -36,7 +36,10 @@ function event_log_node_insert($node) {
   $log = array(
     'type' => 'node',
     'operation' => 'insert',
-    'description' => t('%type: %title', array('%type' => $node->type, '%title' => $node->title)),
+    'description' => t('%type: %title', array(
+      '%type' => $node->type,
+      '%title' => $node->title
+    )),
     'ref_numeric' => $node->nid,
   );
   event_log_insert($log);
@@ -49,7 +52,10 @@ function event_log_node_update($node) {
   $log = array(
     'type' => 'node',
     'operation' => 'update',
-    'description' => t('%type: %title', array('%type' => $node->type, '%title' => $node->title)),
+    'description' => t('%type: %title', array(
+      '%type' => $node->type,
+      '%title' => $node->title
+    )),
     'ref_numeric' => $node->nid,
     'info' => $node->original,
   );
@@ -63,7 +69,10 @@ function event_log_node_delete($node) {
   $log = array(
     'type' => 'node',
     'operation' => 'delete',
-    'description' => t('%type: %title', array('%type' => $node->type, '%title' => $node->title)),
+    'description' => t('%type: %title', array(
+      '%type' => $node->type,
+      '%title' => $node->title
+    )),
     'ref_numeric' => $node->nid,
     'info' => $node,
   );
@@ -74,17 +83,19 @@ function event_log_node_delete($node) {
  * Implements hook_init().
  */
 function event_log_node_init() {
-  $item = menu_get_item();
-  if (!empty($item['page_callback']) && $item['page_callback'] == 'node_page_view') {
-    $node = node_load(arg(1));
-    if (!empty($node)) {
-      $log = array(
-        'type' => 'node',
-        'operation' => 'view',
-        'description' => (mb_strlen($node->title) > 20 ? mb_substr($node->title, 0, 20) . '...' : $node->title),
-        'ref_numeric' => $node->nid,
-      );
-      event_log_insert($log);
+  if (variable_get('event_log_node_log_views', 0)) {
+    $item = menu_get_item();
+    if (!empty($item['page_callback']) && $item['page_callback'] == 'node_page_view') {
+      $node = node_load(arg(1));
+      if (!empty($node)) {
+        $log = array(
+          'type' => 'node',
+          'operation' => 'view',
+          'description' => (mb_strlen($node->title) > 20 ? mb_substr($node->title, 0, 20) . '...' : $node->title),
+          'ref_numeric' => $node->nid,
+        );
+        event_log_insert($log);
+      }
     }
   }
 }

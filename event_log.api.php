@@ -22,10 +22,10 @@
  *     specified in form_ids. The callback function profile:
  *
  *     Returns the event to be inserted in the event log, if any.
- *     @param {array} $form
- *     @param {array} $form_state
- *     @param {string} $form_id
- *     @return {mixed}
+ * @param {array} $form
+ * @param {array} $form_state
+ * @param {string} $form_id
+ * @return {mixed}
  *       Either a log record or NULL if no event should be added. The event type
  *       is automatically added.
  *

@@ -274,7 +274,10 @@ function event_log_views_data_alter(&$data) {
           $relationships[$info['table']] = array();
         }
         if (!array_key_exists($info['field'], $relationships[$info['table']])) {
-          $relationships[$info['table']][$info['field']] = array('numeric' => !empty($info['numeric']), 'types' => array());
+          $relationships[$info['table']][$info['field']] = array(
+            'numeric' => !empty($info['numeric']),
+            'types' => array()
+          );
         }
         $relationships[$info['table']][$info['field']]['types'][$type] = array(
           'operations' => $info['operations'],
@@ -302,7 +305,10 @@ function event_log_views_data_alter(&$data) {
         }
       }
 
-      $title = t('Event log record reference to @table.@field', array('@table' => $table, '@field' => $field));
+      $title = t('Event log record reference to @table.@field', array(
+        '@table' => $table,
+        '@field' => $field
+      ));
       $help = t('This reference works for the following event types: @types_str', array('@types_str' => $types_str));
 
       $data['event_log'][$field_key] = array(
