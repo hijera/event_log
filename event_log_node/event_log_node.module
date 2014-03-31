@@ -83,7 +83,7 @@ function event_log_node_delete($node) {
  * Implements hook_init().
  */
 function event_log_node_init() {
-  if (variable_get('event_log_node_log_views', 0)) {
+  if (variable_get('event_log_node_log_views', 1)) {
     $item = menu_get_item();
     if (!empty($item['page_callback']) && $item['page_callback'] == 'node_page_view') {
       $node = node_load(arg(1));
