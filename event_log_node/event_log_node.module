@@ -84,18 +84,14 @@ function event_log_node_delete($node) {
  */
 function event_log_node_init() {
   if (variable_get('event_log_node_log_views', 1)) {
-    $item = menu_get_item();
-    if (!empty($item['page_callback']) && $item['page_callback'] == 'node_page_view') {
-      $node = node_load(arg(1));
-      if (!empty($node)) {
-        $log = array(
-          'type' => 'node',
-          'operation' => 'view',
-          'description' => (mb_strlen($node->title) > 20 ? mb_substr($node->title, 0, 20) . '...' : $node->title),
-          'ref_numeric' => $node->nid,
-        );
-        event_log_insert($log);
-      }
+    if ($node = menu_get_object()) {
+      $log = array(
+        'type' => 'node',
+        'operation' => 'view',
+        'description' => (mb_strlen($node->title) > 20 ? mb_substr($node->title, 0, 20) . '...' : $node->title),
+        'ref_numeric' => $node->nid,
+      );
+      event_log_insert($log);
     }
   }
 }

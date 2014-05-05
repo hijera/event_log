@@ -86,17 +86,13 @@ function event_log_user_delete($account) {
  * Implements hook_init().
  */
 function event_log_user_init() {
-  $item = menu_get_item();
-  if (!empty($item['page_callback']) && $item['page_callback'] == 'user_view_page') {
-    $account = $item['page_arguments'][0];
-    if (!empty($account)) {
-      $log = array(
-        'type' => 'user',
-        'operation' => 'view',
-        'description' => t('%name', array('%name' => $account->name)),
-        'ref_numeric' => $account->uid,
-      );
-      event_log_insert($log);
-    }
+  if ($account = menu_get_object('user')) {
+    $log = array(
+      'type' => 'user',
+      'operation' => 'view',
+      'description' => t('%name', array('%name' => $account->name)),
+      'ref_numeric' => $account->uid,
+    );
+    event_log_insert($log);
   }
 }
