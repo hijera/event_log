@@ -58,6 +58,15 @@ function event_log_overview_page_form($form, &$form_state) {
 
   $form['filters']['operation'] = _event_log_overview_page_form_get_operations(empty($form_state['input']['type']) ? '' : $form_state['input']['type']);
 
+  $form['filters']['user'] = array(
+    '#type' => 'textfield',
+    '#title' => t('User'),
+    '#description' => t('The user that triggered this event.'),
+    '#size' => 30,
+    '#maxlength' => 60,
+    '#autocomplete_path' => 'user/autocomplete',
+  );
+
   // Add reference filters.
   $form['filters']['id'] = array(
     '#type' => 'textfield',
@@ -150,6 +159,16 @@ function event_log_overview_page_form($form, &$form_state) {
     }
     if (!empty($form_state['values']['keyword'])) {
       $query->condition('description', '%' . db_like($form_state['values']['keyword']) . '%', 'LIKE');
+    }
+    if (!empty($form_state['values']['user'])) {
+      $uid = db_select('users', 'u')
+        ->fields('u', array('uid'))
+        ->condition('name', $form_state['values']['user'])
+        ->execute()
+        ->fetchField();
+      if (!empty($uid)) {
+        $query->condition('uid', $uid);
+      }
     }
 
     $total = $query->countQuery()->execute()->fetchField();
