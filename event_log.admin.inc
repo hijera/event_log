@@ -76,6 +76,14 @@ function event_log_overview_page_form($form, &$form_state) {
     '#description' => t('The id of the subject (numeric).'),
   );
 
+  $form['filters']['ip'] = array(
+    '#type' => 'textfield',
+    '#size' => 20,
+    '#title' => t('IP'),
+    '#prefix' => '<br />',
+    '#description' => t('The ip address of the visitor.'),
+  );
+
   $form['filters']['name'] = array(
     '#type' => 'textfield',
     '#size' => 10,
@@ -150,6 +158,9 @@ function event_log_overview_page_form($form, &$form_state) {
     }
     if (!empty($form_state['values']['id'])) {
       $query->condition('ref_numeric', $form_state['values']['id']);
+    }
+    if (!empty($form_state['values']['ip'])) {
+      $query->condition('ip', $form_state['values']['ip']);
     }
     if (!empty($form_state['values']['name'])) {
       $query->condition('ref_char', $form_state['values']['name']);
