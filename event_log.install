@@ -104,6 +104,7 @@ function event_log_update_7300() {
   _event_log_update_schema_field('form_id', $spec);
   _event_log_update_schema_field('ref_char', $spec);
   _event_log_update_schema_field('ip', $spec);
+  _event_log_update_schema_field('ip', array('length' => '255'));
 }
 
 /**
