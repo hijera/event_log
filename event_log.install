@@ -73,7 +73,7 @@ function event_log_schema() {
       'ip' => array(
         'description' => 'IP address of the visitor that triggered this event.',
         'type' => 'varchar',
-        'length' => '20',
+        'length' => '255',
         'not null' => FALSE,
       ),
       'created' => array(
