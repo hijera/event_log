@@ -2,4 +2,3 @@ name = Event log
 description = "Logs general events on the website."
 core = 7.x
 package = Statistics
-version = 7.x-1.5
