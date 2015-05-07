@@ -203,7 +203,7 @@ function event_log_overview_page_form($form, &$form_state) {
         array('data' => $record->description),
         array('data' => (empty($account) ? '' : l($account->name, 'user/' . $account->uid))),
         array('data' => check_plain($record->ip)),
-        array('data' => check_plain($record->ref_numeric)),
+        array('data' => ($record->type == "node" && ($record->operation == "view" || $record->operation == "insert" || $record->operation == "edit")) ? l(check_plain($record->ref_numeric), 'node/' . check_plain($record->ref_numeric)) : check_plain($record->ref_numeric)),
         array('data' => check_plain($record->ref_char)),
         array('data' => (empty($record->info) ? '' : '<div class="event-log-info"><pre>' . check_plain($record->info) . '</pre></div>')),
       );
