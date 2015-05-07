@@ -106,6 +106,9 @@ function event_log_update_7300() {
   _event_log_update_schema_field('ip', $spec);
 }
 
+/**
+ * Important: Change column lenght to support IPv6 ip adres.
+ */
 function event_log_update_7301() {
   _event_log_update_schema_field('ip', array('length' => '255'));
 }

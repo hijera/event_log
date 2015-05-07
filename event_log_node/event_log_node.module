@@ -88,7 +88,7 @@ function event_log_node_init() {
       $log = array(
         'type' => 'node',
         'operation' => 'view',
-        'description' => (mb_strlen($node->title) > 20 ? mb_substr($node->title, 0, 20) . '...' : $node->title),
+        'description' => (mb_strlen($node->title) > 120 ? mb_substr($node->title, 0, 120) . '...' : $node->title),
         'ref_numeric' => $node->nid,
       );
       event_log_insert($log);
