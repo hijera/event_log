@@ -10,7 +10,7 @@ CONTENTS OF THIS FILE
 INTRODUCTION
 ------------
 
-Current Maintainer: Bas van Meurs <bas@cipix.nl>
+Current Maintainers: Reinder Brandsma <reinder@cipix.nl>, Edwin van Buuringen <edwin@cipix.nl>, Tarik Laasri <tarik@cipix.nl>
 
 This module logs specific events. The events are saved in the database and can
 be viewed on the page admin/reports/events. Furthermore, a views integration is
@@ -44,3 +44,8 @@ events.
 
 In the views screen, a new base table 'Event log' will appear. Furthermore,
 several relationships to and from the event log are automatically added.
+
+The default behaviour for the Event Log table is to not purge any entries. You
+can change this behaviour on the admin/config/development/logging page. You can
+set the maximum number of entries to keep. Older entries will be deleted by cron
+with a maximum of 50000 entries at a time.

@@ -147,7 +147,7 @@ function event_log_menu_menu_insert($menu) {
 function event_log_menu_menu_update($menu) {
   $log = array(
     'type' => 'menu',
-    'operation' => 'insert',
+    'operation' => 'update',
     'description' => t('%title (%name)', array(
       '%title' => $menu['title'],
       '%name' => $menu['menu_name']
@@ -163,7 +163,7 @@ function event_log_menu_menu_update($menu) {
 function event_log_menu_menu_delete($menu) {
   $log = array(
     'type' => 'menu',
-    'operation' => 'insert',
+    'operation' => 'delete',
     'description' => t('%title (%name)', array(
       '%title' => $menu['title'],
       '%name' => $menu['menu_name']

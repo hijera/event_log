@@ -48,6 +48,39 @@ function event_log_permission() {
 }
 
 /**
+ * Implements hook_cron().
+ */
+function event_log_cron() {
+  // Cleanup the eventlog table.
+  $row_limit = variable_get('eventlog_max_records', 0);
+
+  // Get the oldest row lid that should not be deleted.
+  if ($row_limit > 0) {
+    $min_row = db_select('event_log', 'e')
+      ->fields('e', array('lid'))
+      ->orderBy('lid', 'DESC')
+      ->range($row_limit-1, 1)
+      ->execute()->fetchField();
+
+    // Delete table entries older than the oldest row that should be preserved.
+    // Delete a maximum of 50000 records.
+    if ($min_row) {
+      $ids = db_select('event_log', 'e')
+        ->fields('e', array('lid'))
+        ->condition('e.lid', $min_row, '<')
+        ->orderBy('e.lid', 'ASC')
+        ->range(0, 50000)
+        ->execute()
+        ->fetchCol();
+
+      db_delete('event_log')
+        ->condition('lid', $ids, 'IN')
+        ->execute();
+    }
+  }
+}
+
+/**
  * Inserts the log record in the event log. Sets the lid.
  *
  * @param array $log
@@ -183,6 +216,37 @@ function event_log_form_submit(&$form, &$form_state) {
 function event_log_form_alter(&$form, &$form_state, $form_id) {
   // Add submit callback to ANY form action.
   event_log_add_submit_handler($form, 'event_log_form_submit');
+
+  if ($form_id == 'system_logging_settings') {
+    $form['eventlog'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Eventlog'),
+      '#description' => t('Settings for the eventlog messages table.'),
+      '#collapsible' => TRUE,
+      '#collapsed' => FALSE,
+    );
+
+    $form['eventlog']['eventlog_max_records'] = array(
+      '#type' => 'select',
+      '#title' => t('Eventlog messages to keep'),
+      '#description' => t('The maximum number of messages to keep in the database event log. Requires a cron maintenance task.'),
+      '#options' => array(
+        0 => t('All'),
+        1000 => '1000',
+        2500 => '2500',
+        5000 => '5000',
+        10000 => '10000',
+        25000 => '25000',
+        50000 => '50000',
+        100000 => '100000',
+        250000 => '250000',
+        500000 => '500000',
+        1000000 => '1000000',
+      ),
+      '#default_value' => variable_get('eventlog_max_records', 'all'),
+      '#required' => FALSE,
+    );
+  }
 }
 
 /**
